@@ -44,50 +44,6 @@ CREATE TYPE "public"."positions" AS ENUM (
 
 ALTER TYPE "public"."positions" OWNER TO "postgres";
 
-CREATE OR REPLACE FUNCTION "public"."broadcast_player_delete"() RETURNS "trigger"
-    LANGUAGE "plpgsql" SECURITY DEFINER
-    AS $$begin
-  perform realtime.send(
-    jsonb_build_object(
-      'id', OLD.id
-    ),
-    'DELETE',
-    'players',
-    FALSE
-  );
-  return null;
-end;$$;
-
-ALTER FUNCTION "public"."broadcast_player_delete"() OWNER TO "postgres";
-
-CREATE OR REPLACE FUNCTION "public"."broadcast_player_insert"() RETURNS "trigger"
-    LANGUAGE "plpgsql" SECURITY DEFINER
-    AS $$begin
-  perform realtime.send(
-    to_jsonb(NEW),
-    'INSERT',
-    'players',
-    FALSE
-  );
-  return null;
-end;$$;
-
-ALTER FUNCTION "public"."broadcast_player_insert"() OWNER TO "postgres";
-
-CREATE OR REPLACE FUNCTION "public"."broadcast_player_update"() RETURNS "trigger"
-    LANGUAGE "plpgsql" SECURITY DEFINER
-    AS $$begin
-  perform realtime.send(
-    to_jsonb(NEW),
-    'UPDATE',
-    'players',
-    FALSE
-  );
-  return null;
-end;$$;
-
-ALTER FUNCTION "public"."broadcast_player_update"() OWNER TO "postgres";
-
 SET default_tablespace = '';
 
 SET default_table_access_method = "heap";
@@ -163,12 +119,6 @@ ALTER TABLE ONLY "public"."training_blocks"
 
 CREATE INDEX "players_training_block_id_idx" ON "public"."players" USING "btree" ("training_block_id");
 
-CREATE OR REPLACE TRIGGER "handle_player_delete" AFTER DELETE ON "public"."players" FOR EACH ROW EXECUTE FUNCTION "public"."broadcast_player_delete"();
-
-CREATE OR REPLACE TRIGGER "handle_player_insert" AFTER INSERT ON "public"."players" FOR EACH ROW EXECUTE FUNCTION "public"."broadcast_player_insert"();
-
-CREATE OR REPLACE TRIGGER "handle_player_update" AFTER UPDATE ON "public"."players" FOR EACH ROW EXECUTE FUNCTION "public"."broadcast_player_update"();
-
 ALTER TABLE ONLY "public"."players"
     ADD CONSTRAINT "players_training_block_id_fkey" FOREIGN KEY ("training_block_id") REFERENCES "public"."training_blocks"("id") ON UPDATE CASCADE ON DELETE SET NULL;
 
@@ -192,18 +142,6 @@ GRANT USAGE ON SCHEMA "public" TO "postgres";
 GRANT USAGE ON SCHEMA "public" TO "anon";
 GRANT USAGE ON SCHEMA "public" TO "authenticated";
 GRANT USAGE ON SCHEMA "public" TO "service_role";
-
-GRANT ALL ON FUNCTION "public"."broadcast_player_delete"() TO "anon";
-GRANT ALL ON FUNCTION "public"."broadcast_player_delete"() TO "authenticated";
-GRANT ALL ON FUNCTION "public"."broadcast_player_delete"() TO "service_role";
-
-GRANT ALL ON FUNCTION "public"."broadcast_player_insert"() TO "anon";
-GRANT ALL ON FUNCTION "public"."broadcast_player_insert"() TO "authenticated";
-GRANT ALL ON FUNCTION "public"."broadcast_player_insert"() TO "service_role";
-
-GRANT ALL ON FUNCTION "public"."broadcast_player_update"() TO "anon";
-GRANT ALL ON FUNCTION "public"."broadcast_player_update"() TO "authenticated";
-GRANT ALL ON FUNCTION "public"."broadcast_player_update"() TO "service_role";
 
 GRANT ALL ON TABLE "public"."players" TO "anon";
 GRANT ALL ON TABLE "public"."players" TO "authenticated";
