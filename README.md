@@ -19,7 +19,7 @@ git clone https://github.com/LarryLing/IDP-Scheduler-Self-Hosted-Supabase.git
 
 1. Create a `.env` file and copy the contents of `.env.example`.
 2. Enter secure passwords for `POSTGRES_PASSWORD` and `DASHBOARD_PASSWORD`. You may also optionally edit the `DASHBOARD_USERNAME`.
-3. Use the following [link](https://supabase.com/docs/guides/self-hosting/docker#generate-api-keys) to get a `JWT_SECRET` and generate keys for `ANON_KEY` and `SERVICE_ROLE_KEY`.
+3. Use the following [link](https://supabase.com/docs/guides/self-hosting/docker#generate-api-keys) to get a `JWT_SECRET` and generate keys for `ANON_KEY` and `SERVICE_ROLE_KEY`. Remember the `ANON_KEY` for the frontend application.
 
 ![Generate keys](https://github.com/LarryLing/IDP-Scheduler-Self-Hosted-Supabase/blob/main/screenshots/generate_keys.png "Generate keys")
 
