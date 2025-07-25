@@ -176,6 +176,10 @@ CREATE POLICY "Enable all access for all users" ON "public"."players" USING (tru
 
 CREATE POLICY "Enable all access for all users" ON "public"."training_blocks" USING (true);
 
+CREATE POLICY "Allow listening for broadcasts for all users" ON "realtime"."messages" AS PERMISSIVE FOR SELECT TO public USING (true);
+
+CREATE POLICY "Allow pushing broadcasts for all users" ON "realtime"."messages" AS PERMISSIVE FOR INSERT TO public USING (true);
+
 ALTER TABLE "public"."players" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."training_blocks" ENABLE ROW LEVEL SECURITY;
