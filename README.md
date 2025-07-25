@@ -23,15 +23,29 @@ git clone https://github.com/LarryLing/IDP-Scheduler-Self-Hosted-Supabase.git
 
 ![Generate keys](https://github.com/LarryLing/IDP-Scheduler-Self-Hosted-Supabase/blob/main/screenshots/generate_keys.png "Generate keys")
 
-### Starting Containers
+### Working With Containers
 
+If the container is being run for the very first time or the database needs to be reset, copy the following commands
 ```sh
 docker compose pull
 docker compose up -d
+docker exec -i $(docker compose ps -q db) psql -U postgres -d postgres < schema.sql
+docker exec -i $(docker compose ps -q db) psql -U postgres -d postgres < seed.sql
+```
 
-# If you are starting the container for the very first time
-docker exec -i $(docker compose ps -q db) psql -U postgres -d postgres < schema.sql # Setup the database schemas, functions, etc
-docker exec -i $(docker compose ps -q db) psql -U postgres -d postgres < seed.sql # Populate the database with initial data
+Otherwise, use the following command
+```sh
+docker compose up -d
+```
+
+To temporarily pause the container, use the following command
+```sh
+docker compose stop
+```
+
+To halt and remove the container, use the following command
+```sh
+docker compose down
 ```
 
 ### Accessing Dashboard
