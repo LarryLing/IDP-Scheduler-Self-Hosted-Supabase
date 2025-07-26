@@ -17,7 +17,7 @@ INSERT INTO "public"."players" ("id", "training_block_id", "name", "number", "po
 	('a6dc05b3-77b1-4a2c-b6f1-f85c419c0e53', NULL, 'Doug Hainer', 15, 'Midfielder', '[]'),
 	('1f8d8289-4ac8-4214-a264-5017b042a94c', NULL, 'Peter Reisz', 16, 'Forward', '[]'),
 	('b0b85593-3965-4342-a8f4-f439a0165c2d', NULL, 'Alejandro Martinez Santamaria', 17, 'Forward', '[]'),
-	('bfc5c924-38fd-4b39-99d9-d20065b631c5', NULL, 'Aaron O`Reilly', 18, 'Forward', '[]'),
+	('bfc5c924-38fd-4b39-99d9-d20065b631c5', NULL, 'Aaron O''Reilly', 18, 'Forward', '[]'),
 	('70a19622-0eac-4464-b12c-fac336b6c185', NULL, 'Fritz Volmar', 19, 'Defender', '[]'),
 	('a6cf2d39-0735-43bc-b45a-eaa372e7bac2', NULL, 'Henri Richter', 20, 'Defender', '[]'),
 	('e7f882da-07e7-45d6-b0a7-c40a66e8aadd', NULL, 'James Spatzek', 21, 'Midfielder', '[]'),
